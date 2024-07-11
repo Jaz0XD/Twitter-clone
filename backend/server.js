@@ -8,6 +8,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //* To parse form data in POSTMAN
 // console.log(process.env.MONGO_URI);
 
 app.use("/api/auth", authRoutes);
