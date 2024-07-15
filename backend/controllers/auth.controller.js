@@ -44,9 +44,9 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
-      //? fullName: fullName,
-      //? username: username,
-      //? email: email,
+      // fullName: fullName,
+      // username: username,
+      // email: email,
       // password: hashedPassword
 
       //* Since we use the same var for fullName, username and email it can be shortened
@@ -73,13 +73,13 @@ export const signup = async (req, res) => {
       res.status(400).json({ error: "Invalid user data" });
     }
   } catch (error) {
-    //? Log error in Console
+    //* Log error in Console
     console.log(
       "[auth.controller.js] Error in signup controller,",
       error.message
     );
 
-    //* Sends Server Error to user
+    //* Send error message to user
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -129,13 +129,12 @@ export const logout = async (req, res) => {
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    //? Log error in Console
+    //* Log error in Console
     console.log(
       "[auth.controller.js] Error in logout controller,",
       error.message
     );
-
-    //* Sends Server Error to user
+    //* Send error message to user
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -145,8 +144,9 @@ export const getMe = async (req, res) => {
     const user = await User.findById(req.user._id).select("-password");
     res.status(200).json(user);
   } catch (error) {
-    //? Log error in Console
+    //* Log error in Console
     console.log("Error in getMe controller", error.message);
+    //* Send error message to user
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
