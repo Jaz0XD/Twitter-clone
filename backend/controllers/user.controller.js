@@ -6,7 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
 
-//* Getting user profile
+//* GET USER PROFILE
 
 export const getUserProfile = async (req, res) => {
   const { username } = req.params;
@@ -28,7 +28,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-//* Following and Unfollowing
+//* FOLLOW & UNFOLLOW
 
 export const followUnfollowUser = async (req, res) => {
   try {
@@ -84,7 +84,7 @@ export const followUnfollowUser = async (req, res) => {
   }
 };
 
-//* Getting suggested users
+//* GET SUGGESTED USERS
 
 export const getSuggestedUsers = async (req, res) => {
   try {
@@ -120,7 +120,7 @@ export const getSuggestedUsers = async (req, res) => {
   }
 };
 
-//* Updating user details (Update Profile)
+//* UPDATE USER PROFILE
 
 export const updateUser = async (req, res) => {
   const { fullName, email, username, currentPassword, newPassword, bio, link } =
