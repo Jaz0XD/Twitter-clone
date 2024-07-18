@@ -2,16 +2,18 @@ import express from "express";
 import { protectRoute } from "../middleware/protectRoute.js";
 import {
   createPost,
-  //   likeUnlikePost,
-  //   commentOnPost,
+  likeUnlikePost,
+  commentOnPost,
   deletePost,
+  getAllPosts,
 } from "../controllers/post.controller.js";
 
 const router = express.Router();
 
+router.get("/all", protectRoute, getAllPosts);
 router.post("/create", protectRoute, createPost); //* Creating a post
-// router.post("/like/:id", protectRoute, likeUnlikePost); //* Liking and Disliking a post
-// router.post("/comment/:id", protectRoute, commentOnPost); //* Commenting on a post
+router.post("/like/:id", protectRoute, likeUnlikePost); //* Liking and Disliking a post
+router.post("/comment/:id", protectRoute, commentOnPost); //* Commenting on a post
 router.delete("/:id", protectRoute, deletePost); //* Deleting a post
 
 export default router;
