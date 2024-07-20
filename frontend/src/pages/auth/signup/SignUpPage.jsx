@@ -16,13 +16,11 @@ const SignUpPage = () => {
 		password: "",
 	});
 
-    //* Submit Signup Form
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData); //* Console Log the form data
+		console.log(formData);
 	};
 
-    //* Handle Input Change in the form
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
