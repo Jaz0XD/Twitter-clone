@@ -24,7 +24,9 @@ cloudinary.config({
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json()); //* To parse req.body
+//* limit: "5mb" to increase the limit of the image size or post size increase the number from 5 to any but not too large to avoid DoS attack
+app.use(express.json({ limit: "5mb" })); //* To parse req.body
+
 app.use(express.urlencoded({ extended: true })); //* To parse form data in POSTMAN
 app.use(cookieParser());
 
