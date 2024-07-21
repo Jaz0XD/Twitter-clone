@@ -80,6 +80,9 @@ export const deletePost = async (req, res) => {
 
 //* COMMENT POSTS
 
+//TODO Sort comments by createdAt
+//TODO Add createdAt to comments
+
 export const commentOnPost = async (req, res) => {
   try {
     const { text } = req.body;
