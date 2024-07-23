@@ -1,18 +1,50 @@
-import { CiImageOn } from "react-icons/ci";
-import { BsEmojiSmileFill } from "react-icons/bs";
-import { useRef, useState } from "react";
+import { BsEmojiSmile } from "react-icons/bs";
+import { useRef, useState, useEffect } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { GrImage } from "react-icons/gr";
+import EmojiPicker from "emoji-picker-react";
 
 const CreatePost = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
+  const textareaRef = useRef(null);
 
   const imgRef = useRef(null);
 
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const queryClient = useQueryClient();
+
+  const [isPickerVisible, setPickerVisible] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+    setPickerVisible(false);
+  };
+
+  const handleFocus = (e) => {
+    e.preventDefault();
+    const options = document.getElementById("options");
+    if (options) {
+      options.style.borderTop = "1px solid #1F2937";
+    }
+  };
+
+  const handleBlur = () => {
+    const options = document.getElementById("options");
+    if (options) {
+      options.style.borderTop = ""; // Remove the style
+    }
+  };
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [text]);
 
   const {
     mutate: CreatePost,
@@ -66,18 +98,21 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="flex p-4 items-start gap-4 border-b border-gray-700">
+    <div className="flex p-2 pt-4 pr-4 items-start gap-4 border-b border-gray-700">
       <div className="avatar">
-        <div className="w-8 rounded-full">
+        <div className="w-12 rounded-full">
           <img src={authUser.profileImg || "/avatar-placeholder.png"} />
         </div>
       </div>
       <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
         <textarea
-          className="textarea w-full p-0 text-lg resize-none border-none focus:outline-none  border-gray-800"
-          placeholder="What is happening?!"
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={textareaRef}
+          placeholder="What is happening?!"
+          className="textarea w-full focus:min-h-[112px] p-0 mt-1 text-xl font-medium resize-none border-none focus:outline-none"
         />
         {img && (
           <div className="relative w-72 mx-auto">
@@ -96,11 +131,27 @@ const CreatePost = () => {
         )}
         <div className="flex justify-between border-t py-2 border-t-gray-700">
           <div className="flex gap-1 items-center">
-            <CiImageOn
+            {/* <CiImageOn
               className="fill-primary w-6 h-6 cursor-pointer"
               onClick={() => imgRef.current.click()}
+            /> */}
+            <GrImage
+              className="text-primary mr-1 w-6 h-7 cursor-pointer"
+              onClick={() => imgRef.current.click()}
             />
-            <BsEmojiSmileFill className="fill-primary w-5 h-5 cursor-pointer" />
+
+            {/* //TODO Fix emoji picker / Emoji tab opens but does not input in placeholder} */}
+
+            <BsEmojiSmile
+              className="text-primary ml-1 stroke-[0.5px] w-5 h-5 cursor-pointer"
+              onClick={() => setPickerVisible(!isPickerVisible)}
+            />
+            {isPickerVisible && <EmojiPicker onEmojiClick={onEmojiClick} />}
+            {chosenEmoji && <span>{chosenEmoji.emoji}</span>}
+            {/* <BsEmojiSmileFill
+              className="fill-primary w-5 h-5 cursor-pointer"
+              onClick={() => imgRef.current.click()}
+            /> */}
           </div>
           <input type="file" hidden ref={imgRef} onChange={handleImgChange} />
           <button className="btn btn-primary rounded-full btn-sm text-white px-4">
@@ -112,4 +163,5 @@ const CreatePost = () => {
     </div>
   );
 };
+
 export default CreatePost;
