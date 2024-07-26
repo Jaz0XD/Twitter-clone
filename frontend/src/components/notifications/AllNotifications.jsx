@@ -45,7 +45,7 @@ const AllNotifications = () => {
                             <Link to={`/profile/${notification.from.username}`}>
                                 <div className='avatar'>
                                     <div className='w-9 rounded-full'>
-                                        <img src={notification.from.profileImg || "../../../public/avatars/user-default.png"} />
+                                        <img src={notification.from.profileImg || "/avatar-placeholder.png"} />
                                     </div>
                                 </div>
                                 <div className='flex gap-1 text-lg font-medium mt-2'>

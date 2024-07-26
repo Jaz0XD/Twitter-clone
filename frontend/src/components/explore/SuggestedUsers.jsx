@@ -3,8 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import RightPanelSkeleton from "../skeletons/RightPanelSkeleton";
 import useFollow from "../../hooks/useFollow";
 
-
-const RecommendedUsers = () => {
+const SuggestedUsers = () => {
   const { data: suggestedUsers, isLoading } = useQuery({
     queryKey: ["suggestedUsers"],
     queryFn: async () => {
@@ -27,12 +26,18 @@ const RecommendedUsers = () => {
 
   if (suggestedUsers?.length === 0) return <div className="md:w-0 w-64"></div>;
   return (
-    <div className="border border-gray-700 rounded-[15px] mt-4 overflow-hidden">
-      <p className="text-[20px] font-black p-4 pl-7">Who to follow</p>
+    <div className=" mt-4 overflow-hidden">
       <div>
         {/* Skeletons */}
         {isLoading && (
           <div>
+            <RightPanelSkeleton />
+            <RightPanelSkeleton />
+            <RightPanelSkeleton />
+            <RightPanelSkeleton />
+            <RightPanelSkeleton />
+            <RightPanelSkeleton />
+            <RightPanelSkeleton />
             <RightPanelSkeleton />
             <RightPanelSkeleton />
             <RightPanelSkeleton />
@@ -66,13 +71,13 @@ const RecommendedUsers = () => {
               </div>
 
               {/* Follow button */}
-              <div className="w-auto flex justify-center items-center rounded-full">
+              <div className="w-auto mr-4 flex justify-center items-center rounded-xl">
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     follow(user._id);
                   }}
-                  className="btn btn-md text-md border-none bg-primary text-white hover:bg-white hover:text-black hover:opacity-90 rounded-full cursor-pointer"
+                  className="btn btn-sm text-md border-none bg-primary text-white hover:bg-white hover:text-black hover:opacity-90 rounded-xl cursor-pointer"
                 >
                   Follow
                 </button>
@@ -84,4 +89,4 @@ const RecommendedUsers = () => {
   );
 };
 
-export default RecommendedUsers;
+export default SuggestedUsers;

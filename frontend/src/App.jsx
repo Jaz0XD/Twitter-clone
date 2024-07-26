@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoginPage from "./pages/auth/login/LoginPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
 import HomePage from "./pages/home/HomePage";
+import ExplorePage from "./pages/explore/ExplorePage";
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
 import NotificationPage from "./pages/notification/NotificationPage";
@@ -63,6 +64,10 @@ function App() {
         <Route
           path="/notifications"
           element={authUser ? <NotificationPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/explore"
+          element={authUser ? <ExplorePage /> : <Navigate to="/" />}
         />
         <Route
           path="/profile/:username"
