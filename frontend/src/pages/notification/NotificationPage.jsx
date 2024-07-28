@@ -21,6 +21,8 @@ const NotificationPage = () => {
   };
 
   return (
+    <div className="md:w-[600px]">
+
     <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen ">
       <div className="sticky top-0 left-0 flex flex-col w-full bg-black/60 backdrop-blur-md z-20">
         {/* Header */}
@@ -73,6 +75,7 @@ const NotificationPage = () => {
 
       {/* Notifications */}
       <div>{renderPosts()}</div>
+    </div>
     </div>
   );
 };

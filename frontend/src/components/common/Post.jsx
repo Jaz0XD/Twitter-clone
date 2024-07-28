@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 
 //* Importing components
 import LoadingSpinner from "./LoadingSpinner";
-import { formatPostDate } from "../../utils/date";
+import { getDatePosted } from "../../utils/date";
 
 const Post = ({ post }) => {
   const [comment, setComment] = useState("");
@@ -24,7 +24,7 @@ const Post = ({ post }) => {
 
   const isMyPost = authUser._id === post.user._id;
 
-  const formattedDate = formatPostDate(post.createdAt);
+  const formattedDate = getDatePosted(post.createdAt);
 
   //* DELETE POST MUTATION
   const { mutate: deletePost, isPending: isDeleting } = useMutation({
@@ -222,7 +222,7 @@ const Post = ({ post }) => {
                               {comment.user.fullName}
                             </span>
                             <span className="text-gray-700 text-sm">
-                              @{comment.user.username}
+                              @{comment.user.username} · {getDatePosted(comment.createdAt)}
                             </span>
                           </div>
                           <div className="text-sm">{comment.text}</div>
